@@ -1,0 +1,11 @@
+nimTitle	twofa	twofa.html	module twofa		0
+nim	otpHotp	twofa.html#otpHotp	OtpType.otpHotp		24
+nim	otpTotp	twofa.html#otpTotp	OtpType.otpTotp		24
+nim	OtpType	twofa.html#OtpType	enum OtpType		24
+nim	AuthURI	twofa.html#AuthURI	type AuthURI		30
+nim	otpauthTotp	twofa.html#otpauthTotp	const otpauthTotp		35
+nim	otpauthHotp	twofa.html#otpauthHotp	const otpauthHotp		39
+nim	genTotpUri	twofa.html#genTotpUri,string,string,string,uint	proc genTotpUri(secret, label: string; issuer: string = ""; interval: uint = 30;\n           isBase32 = false): AuthURI		55
+nim	genHotpUri	twofa.html#genHotpUri,string,string,string,uint64	proc genHotpUri(secret, label: string; issuer: string = ""; counter: uint64;\n           isBase32 = false): AuthURI		63
+nim	saveQr	twofa.html#saveQr,AuthURI,string	proc saveQr(authUri: AuthURI; path: string)		71
+nim	getQR	twofa.html#getQR,AuthURI	proc getQR(authUri: AuthURI): string		75

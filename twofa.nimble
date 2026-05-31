@@ -10,6 +10,4 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 2.0.0"
-requires "otp >= 0.3.3"
 requires "qr"
-requires "base32"

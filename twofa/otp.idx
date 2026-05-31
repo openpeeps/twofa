@@ -1,0 +1,32 @@
+nimTitle	otp	twofa/otp.html	module twofa/otp		0
+nim	secretSize	twofa/otp.html#secretSize	const secretSize		36
+nim	defaultDigits	twofa/otp.html#defaultDigits	const defaultDigits		40
+nim	defaultInterval	twofa/otp.html#defaultInterval	const defaultInterval		43
+nim	defaultWindow	twofa/otp.html#defaultWindow	const defaultWindow		46
+nim	OTPError	twofa/otp.html#OTPError	object OTPError		57
+nim	OTPDefect	twofa/otp.html#OTPDefect	object OTPDefect		61
+nim	OTPDigits	twofa/otp.html#OTPDigits	type OTPDigits		64
+nim	algSHA1	twofa/otp.html#algSHA1	OTPAlgorithm.algSHA1		67
+nim	algSHA512	twofa/otp.html#algSHA512	OTPAlgorithm.algSHA512		67
+nim	OTPAlgorithm	twofa/otp.html#OTPAlgorithm	enum OTPAlgorithm		67
+nim	HOTP	twofa/otp.html#HOTP	object HOTP		86
+nim	TOTP	twofa/otp.html#TOTP	object TOTP		91
+nim	generateCode	twofa/otp.html#generateCode,string,int,OTPDigits,OTPAlgorithm	proc generateCode(secret: string; input: int; digits: OTPDigits;\n             algorithm: OTPAlgorithm): int		257
+nim	timecode	twofa/otp.html#timecode,int,int	proc timecode(interval: int; timestamp: int): int		270
+nim	initHotp	twofa/otp.html#initHotp,openArray[char],OTPDigits,OTPAlgorithm,string,string,int	proc initHotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;\n         algorithm: OTPAlgorithm = algSHA1; issuer: string = "";\n         accountName: string = ""; counter: int = 0): HOTP		278
+nim	initHotp	twofa/otp.html#initHotp,staticopenArray[char],OTPDigits,OTPAlgorithm,string,string,int	proc initHotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;\n         algorithm: OTPAlgorithm = algSHA1; issuer: string = "";\n         accountName: string = ""; counter: int = 0): HOTP		305
+nim	initTotp	twofa/otp.html#initTotp,openArray[char],OTPDigits,int,OTPAlgorithm,string,string	proc initTotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;\n         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;\n         issuer: string = ""; accountName: string = ""): TOTP		326
+nim	initTotp	twofa/otp.html#initTotp,staticopenArray[char],OTPDigits,int,OTPAlgorithm,string,string	proc initTotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;\n         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;\n         issuer: string = ""; accountName: string = ""): TOTP		353
+nim	at	twofa/otp.html#at,HOTP,int	proc at(self: HOTP; counter: int): int		382
+nim	next	twofa/otp.html#next,HOTP	proc next(self: var HOTP): int		386
+nim	at	twofa/otp.html#at,TOTP,int	proc at(self: TOTP; timestamp: int): int		392
+nim	now	twofa/otp.html#now,TOTP	proc now(self: TOTP): int		396
+nim	verify	twofa/otp.html#verify,HOTP,int,int	proc verify(self: HOTP; otp: int; counter: int = 0): bool		404
+nim	verify	twofa/otp.html#verify,TOTP,int,int,int	proc verify(self: TOTP; otp: int; timestamp: int = 0; window: int = defaultWindow): bool		408
+nim	provisioningUri	twofa/otp.html#provisioningUri,HOTP,int	proc provisioningUri(self: HOTP; initialCount: int = 0): string		431
+nim	provisioningUri	twofa/otp.html#provisioningUri,TOTP	proc provisioningUri(self: TOTP): string		448
+nimgrp	inithotp	twofa/otp.html#initHotp-procs-all	proc		278
+nimgrp	provisioninguri	twofa/otp.html#provisioningUri-procs-all	proc		431
+nimgrp	inittotp	twofa/otp.html#initTotp-procs-all	proc		326
+nimgrp	verify	twofa/otp.html#verify-procs-all	proc		404
+nimgrp	at	twofa/otp.html#at-procs-all	proc		382

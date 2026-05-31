@@ -1,0 +1,5 @@
+nimTitle	base32	twofa/base32.html	module twofa/base32		0
+nim	VERSION	twofa/base32.html#VERSION	const VERSION		16
+nim	Base32Error	twofa/base32.html#Base32Error	object Base32Error		22
+nim	encode	twofa/base32.html#encode,openArray[char]	proc encode(s: openArray[char]; pad = true): string		61
+nim	decode	twofa/base32.html#decode,openArray[char]	proc decode(s: openArray[char]): string		98

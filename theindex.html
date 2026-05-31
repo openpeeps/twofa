@@ -16,65 +16,164 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.8">
+<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.10">
 
 <!-- JS -->
-<script type="text/javascript" src="dochack.js?v=2.2.8"></script>
+<script type="text/javascript" src="dochack.js?v=2.2.10"></script>
 </head>
 <body>
   <div class="document" id="documentId">
+    <input type="checkbox" id="nav-toggle" hidden>
+    <label for="nav-toggle" id="nav-burger">&#9776;</label>
+    <label for="nav-toggle" id="nav-overlay"></label>
     <div class="container">
       <h1 class="title">Index</h1>
-      Modules: <a href="index.html">twofa</a>.<br/><p /><h2>API symbols</h2>
-<dl><dt><a name="AuthURI" href="#AuthURI"><span>AuthURI:</span></a></dt><dd><ul class="simple">
+      Modules: <a href="index.html">twofa</a>, <a href="twofa/base32.html">twofa/base32</a>, <a href="twofa/otp.html">twofa/otp</a>.<br/><p /><h2>API symbols</h2>
+<dl><dt><a name="algSHA1" href="#algSHA1"><span>algSHA1:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: OTPAlgorithm.algSHA1" href="twofa/otp.html#algSHA1">otp: OTPAlgorithm.algSHA1</a></li>
+          </ul></dd>
+<dt><a name="algSHA512" href="#algSHA512"><span>algSHA512:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: OTPAlgorithm.algSHA512" href="twofa/otp.html#algSHA512">otp: OTPAlgorithm.algSHA512</a></li>
+          </ul></dd>
+<dt><a name="at" href="#at"><span>at:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc at(self: HOTP; counter: int): int" href="twofa/otp.html#at%2CHOTP%2Cint">otp: proc at(self: HOTP; counter: int): int</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="otp: proc at(self: TOTP; timestamp: int): int" href="twofa/otp.html#at%2CTOTP%2Cint">otp: proc at(self: TOTP; timestamp: int): int</a></li>
+          </ul></dd>
+<dt><a name="AuthURI" href="#AuthURI"><span>AuthURI:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="twofa: type AuthURI" href="index.html#AuthURI">twofa: type AuthURI</a></li>
           </ul></dd>
-<dt><a name="genHotpUri" href="#genHotpUri"><span>genHotpUri:</span></a></dt><dd><ul class="simple">
+<dt><a name="Base32Error" href="#Base32Error"><span>Base32Error:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc genHotpUri(secret, label: string; issuer: string = &quot;&quot;; counter: uint64;
-           isBase32 = false): AuthURI" href="index.html#genHotpUri%2Cstring%2Cstring%2Cstring%2Cuint64">twofa: proc genHotpUri(secret, label: string; issuer: string = &quot;&quot;; counter: uint64;
-           isBase32 = false): AuthURI</a></li>
+          data-doc-search-tag="base32: object Base32Error" href="twofa/base32.html#Base32Error">base32: object Base32Error</a></li>
           </ul></dd>
-<dt><a name="genTotpUri" href="#genTotpUri"><span>genTotpUri:</span></a></dt><dd><ul class="simple">
+<dt><a name="decode" href="#decode"><span>decode:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc genTotpUri(secret, label: string; issuer: string = &quot;&quot;; interval: uint = 30;
-           isBase32 = false): AuthURI" href="index.html#genTotpUri%2Cstring%2Cstring%2Cstring%2Cuint">twofa: proc genTotpUri(secret, label: string; issuer: string = &quot;&quot;; interval: uint = 30;
-           isBase32 = false): AuthURI</a></li>
+          data-doc-search-tag="base32: proc decode(s: openArray[char]): string" href="twofa/base32.html#decode%2CopenArray%5Bchar%5D">base32: proc decode(s: openArray[char]): string</a></li>
           </ul></dd>
-<dt><a name="getQR" href="#getQR"><span>getQR:</span></a></dt><dd><ul class="simple">
+<dt><a name="defaultDigits" href="#defaultDigits"><span>defaultDigits:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc getQR(authUri: AuthURI): string" href="index.html#getQR%2CAuthURI">twofa: proc getQR(authUri: AuthURI): string</a></li>
+          data-doc-search-tag="otp: const defaultDigits" href="twofa/otp.html#defaultDigits">otp: const defaultDigits</a></li>
           </ul></dd>
-<dt><a name="otpauthHotp" href="#otpauthHotp"><span>otpauthHotp:</span></a></dt><dd><ul class="simple">
+<dt><a name="defaultInterval" href="#defaultInterval"><span>defaultInterval:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: const otpauthHotp" href="index.html#otpauthHotp">twofa: const otpauthHotp</a></li>
+          data-doc-search-tag="otp: const defaultInterval" href="twofa/otp.html#defaultInterval">otp: const defaultInterval</a></li>
           </ul></dd>
-<dt><a name="otpauthTotp" href="#otpauthTotp"><span>otpauthTotp:</span></a></dt><dd><ul class="simple">
+<dt><a name="defaultWindow" href="#defaultWindow"><span>defaultWindow:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: const otpauthTotp" href="index.html#otpauthTotp">twofa: const otpauthTotp</a></li>
+          data-doc-search-tag="otp: const defaultWindow" href="twofa/otp.html#defaultWindow">otp: const defaultWindow</a></li>
           </ul></dd>
-<dt><a name="otpHotp" href="#otpHotp"><span>otpHotp:</span></a></dt><dd><ul class="simple">
+<dt><a name="encode" href="#encode"><span>encode:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: OtpType.otpHotp" href="index.html#otpHotp">twofa: OtpType.otpHotp</a></li>
+          data-doc-search-tag="base32: proc encode(s: openArray[char]; pad = true): string" href="twofa/base32.html#encode%2CopenArray%5Bchar%5D">base32: proc encode(s: openArray[char]; pad = true): string</a></li>
           </ul></dd>
-<dt><a name="otpTotp" href="#otpTotp"><span>otpTotp:</span></a></dt><dd><ul class="simple">
+<dt><a name="generateCode" href="#generateCode"><span>generateCode:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: OtpType.otpTotp" href="index.html#otpTotp">twofa: OtpType.otpTotp</a></li>
+          data-doc-search-tag="otp: proc generateCode(secret: string; input: int; digits: OTPDigits;
+             algorithm: OTPAlgorithm): int" href="twofa/otp.html#generateCode%2Cstring%2Cint%2COTPDigits%2COTPAlgorithm">otp: proc generateCode(secret: string; input: int; digits: OTPDigits;
+             algorithm: OTPAlgorithm): int</a></li>
           </ul></dd>
-<dt><a name="OtpType" href="#OtpType"><span>OtpType:</span></a></dt><dd><ul class="simple">
+<dt><a name="getQr" href="#getQr"><span>getQr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: enum OtpType" href="index.html#OtpType">twofa: enum OtpType</a></li>
+          data-doc-search-tag="twofa: proc getQr(uri: AuthURI): string" href="index.html#getQr%2CAuthURI">twofa: proc getQr(uri: AuthURI): string</a></li>
+          </ul></dd>
+<dt><a name="HOTP" href="#HOTP"><span>HOTP:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: object HOTP" href="twofa/otp.html#HOTP">otp: object HOTP</a></li>
+          </ul></dd>
+<dt><a name="initHotp" href="#initHotp"><span>initHotp:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc initHotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;
+         algorithm: OTPAlgorithm = algSHA1; issuer: string = &quot;&quot;;
+         accountName: string = &quot;&quot;; counter: int = 0): HOTP" href="twofa/otp.html#initHotp%2CopenArray%5Bchar%5D%2COTPDigits%2COTPAlgorithm%2Cstring%2Cstring%2Cint">otp: proc initHotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;
+         algorithm: OTPAlgorithm = algSHA1; issuer: string = &quot;&quot;;
+         accountName: string = &quot;&quot;; counter: int = 0): HOTP</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="otp: proc initHotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;
+         algorithm: OTPAlgorithm = algSHA1; issuer: string = &quot;&quot;;
+         accountName: string = &quot;&quot;; counter: int = 0): HOTP" href="twofa/otp.html#initHotp%2CstaticopenArray%5Bchar%5D%2COTPDigits%2COTPAlgorithm%2Cstring%2Cstring%2Cint">otp: proc initHotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;
+         algorithm: OTPAlgorithm = algSHA1; issuer: string = &quot;&quot;;
+         accountName: string = &quot;&quot;; counter: int = 0): HOTP</a></li>
+          </ul></dd>
+<dt><a name="initTotp" href="#initTotp"><span>initTotp:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc initTotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;
+         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;
+         issuer: string = &quot;&quot;; accountName: string = &quot;&quot;): TOTP" href="twofa/otp.html#initTotp%2CopenArray%5Bchar%5D%2COTPDigits%2Cint%2COTPAlgorithm%2Cstring%2Cstring">otp: proc initTotp(secret: openArray[char]; digits: OTPDigits = defaultDigits;
+         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;
+         issuer: string = &quot;&quot;; accountName: string = &quot;&quot;): TOTP</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="otp: proc initTotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;
+         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;
+         issuer: string = &quot;&quot;; accountName: string = &quot;&quot;): TOTP" href="twofa/otp.html#initTotp%2CstaticopenArray%5Bchar%5D%2COTPDigits%2Cint%2COTPAlgorithm%2Cstring%2Cstring">otp: proc initTotp(secret: static openArray[char]; digits: OTPDigits = defaultDigits;
+         interval: int = defaultInterval; algorithm: OTPAlgorithm = algSHA1;
+         issuer: string = &quot;&quot;; accountName: string = &quot;&quot;): TOTP</a></li>
+          </ul></dd>
+<dt><a name="next" href="#next"><span>next:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc next(self: var HOTP): int" href="twofa/otp.html#next%2CHOTP">otp: proc next(self: var HOTP): int</a></li>
+          </ul></dd>
+<dt><a name="now" href="#now"><span>now:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc now(self: TOTP): int" href="twofa/otp.html#now%2CTOTP">otp: proc now(self: TOTP): int</a></li>
+          </ul></dd>
+<dt><a name="OTPAlgorithm" href="#OTPAlgorithm"><span>OTPAlgorithm:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: enum OTPAlgorithm" href="twofa/otp.html#OTPAlgorithm">otp: enum OTPAlgorithm</a></li>
+          </ul></dd>
+<dt><a name="OTPDefect" href="#OTPDefect"><span>OTPDefect:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: object OTPDefect" href="twofa/otp.html#OTPDefect">otp: object OTPDefect</a></li>
+          </ul></dd>
+<dt><a name="OTPDigits" href="#OTPDigits"><span>OTPDigits:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: type OTPDigits" href="twofa/otp.html#OTPDigits">otp: type OTPDigits</a></li>
+          </ul></dd>
+<dt><a name="OTPError" href="#OTPError"><span>OTPError:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: object OTPError" href="twofa/otp.html#OTPError">otp: object OTPError</a></li>
+          </ul></dd>
+<dt><a name="provisioningUri" href="#provisioningUri"><span>provisioningUri:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc provisioningUri(self: HOTP; initialCount: int = 0): string" href="twofa/otp.html#provisioningUri%2CHOTP%2Cint">otp: proc provisioningUri(self: HOTP; initialCount: int = 0): string</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="otp: proc provisioningUri(self: TOTP): string" href="twofa/otp.html#provisioningUri%2CTOTP">otp: proc provisioningUri(self: TOTP): string</a></li>
           </ul></dd>
 <dt><a name="saveQr" href="#saveQr"><span>saveQr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc saveQr(authUri: AuthURI; path: string)" href="index.html#saveQr%2CAuthURI%2Cstring">twofa: proc saveQr(authUri: AuthURI; path: string)</a></li>
+          data-doc-search-tag="twofa: proc saveQr(uri: AuthURI; path: string)" href="index.html#saveQr%2CAuthURI%2Cstring">twofa: proc saveQr(uri: AuthURI; path: string)</a></li>
+          </ul></dd>
+<dt><a name="secretSize" href="#secretSize"><span>secretSize:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: const secretSize" href="twofa/otp.html#secretSize">otp: const secretSize</a></li>
+          </ul></dd>
+<dt><a name="timecode" href="#timecode"><span>timecode:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc timecode(interval: int; timestamp: int): int" href="twofa/otp.html#timecode%2Cint%2Cint">otp: proc timecode(interval: int; timestamp: int): int</a></li>
+          </ul></dd>
+<dt><a name="TOTP" href="#TOTP"><span>TOTP:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: object TOTP" href="twofa/otp.html#TOTP">otp: object TOTP</a></li>
+          </ul></dd>
+<dt><a name="verify" href="#verify"><span>verify:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="otp: proc verify(self: HOTP; otp: int; counter: int = 0): bool" href="twofa/otp.html#verify%2CHOTP%2Cint%2Cint">otp: proc verify(self: HOTP; otp: int; counter: int = 0): bool</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="otp: proc verify(self: TOTP; otp: int; timestamp: int = 0; window: int = defaultWindow): bool" href="twofa/otp.html#verify%2CTOTP%2Cint%2Cint%2Cint">otp: proc verify(self: TOTP; otp: int; timestamp: int = 0; window: int = defaultWindow): bool</a></li>
+          </ul></dd>
+<dt><a name="VERSION" href="#VERSION"><span>VERSION:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="base32: const VERSION" href="twofa/base32.html#VERSION">base32: const VERSION</a></li>
           </ul></dd>
 </dl>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2026-04-01 15:58:18 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2026-05-31 21:14:17 UTC</small>
       </div>
     </div>
   </div>

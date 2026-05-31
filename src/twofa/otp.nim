@@ -10,7 +10,7 @@
 ##
 ## Supported HMAC algorithms:
 ##   - `algSHA1`   — RFC 4226 standard, computed via `openssl` CLI
-##   - `algSHA512` — Stronger alternative, computed via Monocypher
+##   - `algSHA512` — Stronger alternative, computed via `openssl` CLI
 ##
 ## Basic usage:
 ## ```nim
@@ -68,11 +68,9 @@ type
     ## Selects the HMAC hashing algorithm.
     ##
     ## `algSHA1`   — RFC 4226 standard; required for compatibility with
-    ##               Google Authenticator and most TOTP apps.
-    ##               Computed via the system `openssl` CLI.
+    ##               Google Authenticator and most TOTP apps
     ##
-    ## `algSHA512` — Stronger alternative per RFC 6238 §1.2.
-    ##               Computed via Monocypher (no extra dependency).
+    ## `algSHA512` — Stronger alternative per RFC 6238 §1.2
     algSHA1
     algSHA512
 

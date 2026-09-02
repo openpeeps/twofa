@@ -19,8 +19,8 @@
 ## let hotp = initHotp("JBSWY3DPEHPK3PXP", issuer = "MyApp", accountName = "alice@example.com")
 ## hotp.provisioningUri(initialCount = 0).saveQr("hotp.svg")
 ## ```
-import std/strutils
-import pkg/qr
+import std/[strutils, uri, syncio]
+import openparser/qr
 
 import ./twofa/[otp, base32]
 export otp, base32, qr
@@ -30,13 +30,97 @@ type
     ## An `otpauth://` URI suitable for QR code provisioning.
     ## Produced by `HOTP.provisioningUri` or `TOTP.provisioningUri`.
 
-proc saveQr*(uri: AuthURI, path: string) {.inline.} =
+proc saveQr*(
+    uri: AuthURI,
+    path: string,
+    scale = 8,
+    border = 4,
+    dark = "#000000",
+    light = "#ffffff",
+    options = defaultQrEncodeOptions()
+) {.inline.} =
   ## Renders `uri` as an SVG QR code and writes it to `path`.
-  qrSvgFile(uri, path)
+  ## Optional rendering settings mirror `openparser/qr` `toSvg`:
+  ## `scale` is the pixel size per module, `border` the quiet zone in modules,
+  ## `dark`/`light` the module colors, and `options` the QR encode options
+  ## (EC level, version bounds, mask, etc.).
+  let m = encodeQr(uri, options)
+  writeFile(path, m.toSvg(scale, border, dark, light))
 
-proc getQr*(uri: AuthURI): string {.inline.} =
+proc getQr*(
+    uri: AuthURI,
+    scale = 8,
+    border = 4,
+    dark = "#000000",
+    light = "#ffffff",
+    options = defaultQrEncodeOptions()
+): string {.inline.} =
   ## Renders `uri` as an SVG QR code and returns the SVG string.
-  qrSvg(uri)
+  ## See `saveQr` for optional rendering/encoding settings.
+  let m = encodeQr(uri, options)
+  result = m.toSvg(scale, border, dark, light)
+
+proc saveMatrix*(
+    m: QrMatrix,
+    path: string,
+    scale = 8,
+    border = 4,
+    dark = "#000000",
+    light = "#ffffff"
+) {.inline.} =
+  ## Renders an already-encoded `QrMatrix` as SVG and writes it to `path`.
+  ## Useful when you have built the matrix via `encodeQr`, `encodeQrBytes`,
+  ## or any other `openparser/qr` encoder and want direct SVG output
+  ## without re-encoding the URI.
+  writeFile(path, m.toSvg(scale, border, dark, light))
+
+proc genTotpUri*(
+    secret: string,
+    label: string,
+    issuer = "",
+    interval = defaultInterval,
+    digits: OTPDigits = defaultDigits,
+    algorithm: OTPAlgorithm = algSHA1
+): string =
+  ## Convenience helper that builds an `otpauth://totp/` URI without
+  ## requiring a `TOTP` instance.
+  let encLabel = encodeUrl(label)
+  let encIssuer = encodeUrl(issuer)
+  let algo =
+    case algorithm
+    of algSHA1: "SHA1"
+    of algSHA512: "SHA512"
+  result = "otpauth://totp/" & encLabel &
+           "?secret=" & secret &
+           "&period=" & $interval &
+           "&digits=" & $digits &
+           "&algorithm=" & algo
+  if issuer.len > 0:
+    result &= "&issuer=" & encIssuer
+
+proc genHotpUri*(
+    secret: string,
+    label: string,
+    issuer = "",
+    counter = 0,
+    digits: OTPDigits = defaultDigits,
+    algorithm: OTPAlgorithm = algSHA1
+): string =
+  ## Convenience helper that builds an `otpauth://hotp/` URI without
+  ## requiring an `HOTP` instance.
+  let encLabel = encodeUrl(label)
+  let encIssuer = encodeUrl(issuer)
+  let algo =
+    case algorithm
+    of algSHA1: "SHA1"
+    of algSHA512: "SHA512"
+  result = "otpauth://hotp/" & encLabel &
+           "?secret=" & secret &
+           "&counter=" & $counter &
+           "&digits=" & $digits &
+           "&algorithm=" & algo
+  if issuer.len > 0:
+    result &= "&issuer=" & encIssuer
 
 when isMainModule:
   # TOTP example — compatible with Google Authenticator

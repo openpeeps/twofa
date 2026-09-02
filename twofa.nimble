@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "George Lemon"
-description   = "Simple 2FA QR CodeGen based on otp & qr packages"
+description   = "Simple 2FA QR CodeGen based on otp & openparser packages"
 license       = "MIT"
 srcDir        = "src"
 
@@ -10,4 +10,4 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 2.0.0"
-requires "qr"
+requires "openparser"

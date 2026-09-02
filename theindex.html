@@ -77,9 +77,25 @@
              algorithm: OTPAlgorithm): int" href="twofa/otp.html#generateCode%2Cstring%2Cint%2COTPDigits%2COTPAlgorithm">otp: proc generateCode(secret: string; input: int; digits: OTPDigits;
              algorithm: OTPAlgorithm): int</a></li>
           </ul></dd>
+<dt><a name="genHotpUri" href="#genHotpUri"><span>genHotpUri:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="twofa: proc genHotpUri(secret: string; label: string; issuer = &quot;&quot;; counter = 0;
+           digits: OTPDigits = defaultDigits; algorithm: OTPAlgorithm = algSHA1): string" href="index.html#genHotpUri%2Cstring%2Cstring%2Cstring%2Cint%2COTPDigits%2COTPAlgorithm">twofa: proc genHotpUri(secret: string; label: string; issuer = &quot;&quot;; counter = 0;
+           digits: OTPDigits = defaultDigits; algorithm: OTPAlgorithm = algSHA1): string</a></li>
+          </ul></dd>
+<dt><a name="genTotpUri" href="#genTotpUri"><span>genTotpUri:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="twofa: proc genTotpUri(secret: string; label: string; issuer = &quot;&quot;;
+           interval = defaultInterval; digits: OTPDigits = defaultDigits;
+           algorithm: OTPAlgorithm = algSHA1): string" href="index.html#genTotpUri%2Cstring%2Cstring%2Cstring%2COTPDigits%2COTPAlgorithm">twofa: proc genTotpUri(secret: string; label: string; issuer = &quot;&quot;;
+           interval = defaultInterval; digits: OTPDigits = defaultDigits;
+           algorithm: OTPAlgorithm = algSHA1): string</a></li>
+          </ul></dd>
 <dt><a name="getQr" href="#getQr"><span>getQr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc getQr(uri: AuthURI): string" href="index.html#getQr%2CAuthURI">twofa: proc getQr(uri: AuthURI): string</a></li>
+          data-doc-search-tag="twofa: proc getQr(uri: AuthURI; scale = 8; border = 4; dark = &quot;#000000&quot;; light = &quot;#ffffff&quot;;
+      options = defaultQrEncodeOptions()): string" href="index.html#getQr%2CAuthURI%2Cint%2Cint%2Cstring%2Cstring">twofa: proc getQr(uri: AuthURI; scale = 8; border = 4; dark = &quot;#000000&quot;; light = &quot;#ffffff&quot;;
+      options = defaultQrEncodeOptions()): string</a></li>
           </ul></dd>
 <dt><a name="HOTP" href="#HOTP"><span>HOTP:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -143,9 +159,17 @@
           <li><a class="reference external"
           data-doc-search-tag="otp: proc provisioningUri(self: TOTP): string" href="twofa/otp.html#provisioningUri%2CTOTP">otp: proc provisioningUri(self: TOTP): string</a></li>
           </ul></dd>
+<dt><a name="saveMatrix" href="#saveMatrix"><span>saveMatrix:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="twofa: proc saveMatrix(m: QrMatrix; path: string; scale = 8; border = 4; dark = &quot;#000000&quot;;
+           light = &quot;#ffffff&quot;)" href="index.html#saveMatrix%2CQrMatrix%2Cstring%2Cint%2Cint%2Cstring%2Cstring">twofa: proc saveMatrix(m: QrMatrix; path: string; scale = 8; border = 4; dark = &quot;#000000&quot;;
+           light = &quot;#ffffff&quot;)</a></li>
+          </ul></dd>
 <dt><a name="saveQr" href="#saveQr"><span>saveQr:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="twofa: proc saveQr(uri: AuthURI; path: string)" href="index.html#saveQr%2CAuthURI%2Cstring">twofa: proc saveQr(uri: AuthURI; path: string)</a></li>
+          data-doc-search-tag="twofa: proc saveQr(uri: AuthURI; path: string; scale = 8; border = 4; dark = &quot;#000000&quot;;
+       light = &quot;#ffffff&quot;; options = defaultQrEncodeOptions())" href="index.html#saveQr%2CAuthURI%2Cstring%2Cint%2Cint%2Cstring%2Cstring">twofa: proc saveQr(uri: AuthURI; path: string; scale = 8; border = 4; dark = &quot;#000000&quot;;
+       light = &quot;#ffffff&quot;; options = defaultQrEncodeOptions())</a></li>
           </ul></dd>
 <dt><a name="secretSize" href="#secretSize"><span>secretSize:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -173,7 +197,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2026-06-02 09:20:39 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2026-09-02 11:15:04 UTC</small>
       </div>
     </div>
   </div>

@@ -1,4 +1,7 @@
 nimTitle	twofa	twofa.html	module twofa		0
 nim	AuthURI	twofa.html#AuthURI	type AuthURI		29
-nim	saveQr	twofa.html#saveQr,AuthURI,string	proc saveQr(uri: AuthURI; path: string)		33
-nim	getQr	twofa.html#getQr,AuthURI	proc getQr(uri: AuthURI): string		37
+nim	saveQr	twofa.html#saveQr,AuthURI,string,int,int,string,string	proc saveQr(uri: AuthURI; path: string; scale = 8; border = 4; dark = "#000000";\n       light = "#ffffff"; options = defaultQrEncodeOptions())		33
+nim	getQr	twofa.html#getQr,AuthURI,int,int,string,string	proc getQr(uri: AuthURI; scale = 8; border = 4; dark = "#000000"; light = "#ffffff";\n      options = defaultQrEncodeOptions()): string		50
+nim	saveMatrix	twofa.html#saveMatrix,QrMatrix,string,int,int,string,string	proc saveMatrix(m: QrMatrix; path: string; scale = 8; border = 4; dark = "#000000";\n           light = "#ffffff")		63
+nim	genTotpUri	twofa.html#genTotpUri,string,string,string,OTPDigits,OTPAlgorithm	proc genTotpUri(secret: string; label: string; issuer = "";\n           interval = defaultInterval; digits: OTPDigits = defaultDigits;\n           algorithm: OTPAlgorithm = algSHA1): string		77
+nim	genHotpUri	twofa.html#genHotpUri,string,string,string,int,OTPDigits,OTPAlgorithm	proc genHotpUri(secret: string; label: string; issuer = ""; counter = 0;\n           digits: OTPDigits = defaultDigits; algorithm: OTPAlgorithm = algSHA1): string		101

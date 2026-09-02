@@ -9,8 +9,8 @@
 ## and RFC 6238 (TOTP) specifications.
 ##
 ## Supported HMAC algorithms:
-##   - `algSHA1`   — RFC 4226 standard, computed via `openssl` CLI
-##   - `algSHA512` — Stronger alternative, computed via `openssl` CLI
+##   - `algSHA1`   — RFC 4226 standard, computed via `nimcypher` (pure Nim)
+##   - `algSHA512` — Stronger alternative, computed via `nimcypher` (pure Nim)
 ##
 ## Basic usage:
 ## ```nim
@@ -27,7 +27,8 @@
 ## echo hotp.at(0)
 ## ```
 
-import std/[math, times, uri, osproc, strutils]
+import std/[math, times, uri]
+import nimcypher
 
 import ./base32
 export base32
@@ -55,8 +56,7 @@ const
 
 type
   OTPError* = object of CatchableError
-    ## Raised for recoverable OTP errors (e.g. invalid secret length,
-    ## openssl not found, unexpected openssl output)
+    ## Raised for recoverable OTP errors (e.g. invalid secret length)
 
   OTPDefect* = object of Defect
     ## Raised for unrecoverable OTP programming errors
@@ -138,101 +138,18 @@ proc intToBytestring(value: int, padding: int = 8): string {.inline.} =
   for i in 0 ..< bytes.len:
     result[i] = bytes[bytes.len - i - 1]
 
-proc toHexString(s: string): string {.inline.} =
-  ## Converts a raw binary string to its lowercase hex representation.
-  ## Used to pass the HMAC message to openssl as hex input.
-  const hexChars = "0123456789abcdef"
-  result = newString(s.len * 2)
-  for i, c in s:
-    result[i * 2]     = hexChars[(ord(c) shr 4) and 0xF]
-    result[i * 2 + 1] = hexChars[ord(c) and 0xF]
-
-proc parseHexNibble(c: char): uint8 {.inline.} =
-  ## Parses a single hex character to its 4-bit value.
-  case c
-  of '0'..'9': result = uint8(ord(c) - ord('0'))
-  of 'a'..'f': result = uint8(ord(c) - ord('a') + 10)
-  of 'A'..'F': result = uint8(ord(c) - ord('A') + 10)
-  else: raise (ref OTPError)(msg: "Unexpected hex character from openssl: '" & $c & "'")
-
-proc parseHexBytes(hex: string): seq[uint8] {.inline.} =
-  ## Converts a hex string (e.g. openssl output) to raw bytes.
-  if hex.len mod 2 != 0:
-    raise (ref OTPError)(msg: "Odd-length hex string from openssl: " & hex)
-  result = newSeq[uint8](hex.len div 2)
-  for i in 0 ..< result.len:
-    result[i] = (parseHexNibble(hex[i * 2]) shl 4) or parseHexNibble(hex[i * 2 + 1])
-
 #
-# HMAC backends
+# HMAC backends (pure Nim via nimcypher)
 #
 
-proc hmacSha1(key: string, message: string): array[hmacSha1OutputSize, uint8] =
-  ## Computes HMAC-SHA1 by shelling out to the system `openssl` CLI.
-  ##
-  ## Command used:
-  ##   echo -n <msg_hex> | openssl dgst -sha1 -mac HMAC -macopt hexkey:<key_hex>
-  ##
-  ## Both key and message are passed as hex strings to avoid shell
-  ## escaping issues with arbitrary binary data.
-  ##
-  ## Raises `OTPError` if openssl is not found or returns unexpected output.
-  let keyHex = toHexString(key)
-  let msgHex = toHexString(message)
+proc hmacSha1(key: string, message: string): array[hmacSha1OutputSize, uint8] {.inline.} =
+  ## Computes HMAC-SHA1 via nimcypher (RFC 2104). Both inputs are raw
+  ## binary strings (decoded Base32 key and 8-byte counter).
+  result = sha1Hmac(key, message)
 
-  # pipe hex message through openssl; -mac HMAC with hexkey avoids
-  # any shell quoting issues with raw binary data
-  let cmd = "printf '%s' '" & msgHex & "' | xxd -r -p | " &
-            "openssl dgst -sha1 -mac HMAC -macopt hexkey:" & keyHex
-
-  let (output, exitCode) = execCmdEx(cmd)
-  if exitCode != 0:
-    raise (ref OTPError)(msg: "openssl HMAC-SHA1 failed (exit " & $exitCode & "): " & output.strip())
-
-  # openssl output format: "HMAC-SHA1(stdin)= <hexdigest>\n"
-  # or just "<hexdigest>\n" depending on version — find the last token
-  let parts = output.strip().splitWhitespace()
-  if parts.len == 0:
-    raise (ref OTPError)(msg: "Empty output from openssl")
-
-  let hexDigest = parts[^1]  ## last whitespace-separated token is always the digest
-  if hexDigest.len != hmacSha1OutputSize * 2:
-    raise (ref OTPError)(
-      msg: "Unexpected HMAC-SHA1 digest length from openssl: got " &
-           $hexDigest.len & " hex chars, expected " & $(hmacSha1OutputSize * 2))
-
-  let raw = parseHexBytes(hexDigest)
-  for i in 0 ..< hmacSha1OutputSize:
-    result[i] = raw[i]
-
-proc hmacSha512(key: string, message: string): array[hmacSha512OutputSize, uint8] =
-  ## Computes HMAC-SHA512 by shelling out to the system `openssl` CLI.
-  ## Both key and message are passed as hex strings to avoid shell
-  ## escaping issues with arbitrary binary data.
-  let keyHex = toHexString(key)
-  let msgHex = toHexString(message)
-
-  let cmd = "printf '%s' '" & msgHex & "' | xxd -r -p | " &
-            "openssl dgst -sha512 -mac HMAC -macopt hexkey:" & keyHex
-
-  let (output, exitCode) = execCmdEx(cmd)
-  if exitCode != 0:
-    raise (ref OTPError)(msg: "openssl HMAC-SHA512 failed (exit " & $exitCode & "): " & output.strip())
-
-  # openssl output format: "HMAC-SHA512(stdin)= <hexdigest>\n" or "<hexdigest>\n"
-  let parts = output.strip().splitWhitespace()
-  if parts.len == 0:
-    raise (ref OTPError)(msg: "Empty output from openssl")
-
-  let hexDigest = parts[^1]
-  if hexDigest.len != hmacSha512OutputSize * 2:
-    raise (ref OTPError)(
-      msg: "Unexpected HMAC-SHA512 digest length from openssl: got " &
-           $hexDigest.len & " hex chars, expected " & $(hmacSha512OutputSize * 2))
-
-  let raw = parseHexBytes(hexDigest)
-  for i in 0 ..< hmacSha512OutputSize:
-    result[i] = raw[i]
+proc hmacSha512(key: string, message: string): array[hmacSha512OutputSize, uint8] {.inline.} =
+  ## Computes HMAC-SHA512 via nimcypher.
+  result = sha512Hmac(key, message)
 
 #
 # Truncation & code generation

@@ -11,3 +11,4 @@ srcDir        = "src"
 
 requires "nim >= 2.0.0"
 requires "openparser"
+requires "nimcypher >= 0.2.0"
